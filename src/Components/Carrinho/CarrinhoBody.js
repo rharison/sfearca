@@ -1,8 +1,10 @@
 import React from 'react';
+import DateNow from '../Date/DateNow';
 import styles from './CarrinhoBody.module.css';
 import CarrinhoBodyFooter from './CarrinhoBodyFooter';
 
 const CarrinhoBody = () => {
+  const { dia, ano, monthString } = DateNow();
   return (
     <div className={`${styles.carrinho} ${styles.carrinhoPai}`}>
       <div
@@ -13,7 +15,14 @@ const CarrinhoBody = () => {
         >
           <div
             className={`${styles.carrinhosElementsInsideTop} ${styles.topLeft}`}
-          ></div>
+          >
+            <div className={styles.dia}>{dia}</div>
+            <div className={styles.separator}></div>
+            <div className={styles.mesAno}>
+              <div>{monthString}</div>
+              <div>de {ano}</div>
+            </div>
+          </div>
           <div
             className={`${styles.carrinhosElementsInsideTop} ${styles.topRigth}`}
           >
