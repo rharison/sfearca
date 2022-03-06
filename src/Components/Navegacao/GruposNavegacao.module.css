@@ -1,0 +1,26 @@
+@media only screen and (max-width: 450.99px) {
+  .day-passeio {
+    margin-top: 260px !important;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .day-passeio {
+    width: calc(95% - 1.5%) !important;
+    left: 2.5% !important;
+  }
+}
+
+.shadow {
+  box-shadow: 0 0 1em darkgray;
+}
+
+.dayPasseio {
+  border-radius: 8px;
+  height: 48px;
+  width: calc(1200px - 1.5%);
+  margin-top: 220px;
+  position: absolute;
+  padding-left: 1.5%;
+  overflow: hidden;
+}
