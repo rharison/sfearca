@@ -1,0 +1,185 @@
+.carrinho {
+  transition: height 0.75s, width 0s;
+  cursor: pointer;
+}
+
+.carrinhoPai {
+  background-color: transparent;
+  position: absolute;
+  width: 1200px;
+  justify-content: space-around;
+  z-index: 10;
+}
+
+.shadow {
+  box-shadow: 0 0 1em darkgray;
+}
+
+.carrinhoBody {
+  display: block;
+  margin-top: 43px;
+  width: 100%;
+  display: block;
+  height: 85px;
+  z-index: 1;
+  background-color: white;
+  position: absolute;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.divCarrinhoDetalhes {
+  height: 90px;
+}
+
+.carrinhoElementTop {
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.carrinhosElementsInsideTop {
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 95%;
+  width: auto;
+  min-width: 150px;
+  padding-left: 7.5px;
+  z-index: -1;
+}
+
+.topLeft {
+  color: #5a6c7c;
+  font-family: roboto, sans-serif !important;
+}
+
+.divPaiTopRigth {
+  overflow: hidden;
+  flex-direction: column;
+  background-color: #f5f7fa;
+  height: 75%;
+  margin-right: 7px;
+  width: auto;
+  padding-left: 2.5%;
+  padding-right: 3%;
+  margin-left: 15px;
+  border-radius: 12px;
+  border: solid 1px #dee6ed;
+}
+
+.iconCarrinhoIcon {
+  padding: 5px;
+  width: auto;
+  padding-right: 10px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconCarrinho {
+  padding-top: 2px;
+}
+
+.quantidadeCarrinhoBody {
+  position: absolute;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  background-color: #c32222;
+  font-size: 0.75em;
+  align-items: center;
+  justify-content: center;
+  margin-left: 28px;
+  margin-top: -20px;
+  color: white;
+  font-weight: 500;
+}
+
+.totalValor {
+  margin-top: 5px;
+  margin-right: 15px;
+  margin-left: 5px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 95%;
+}
+
+.spanCarrinho {
+  color: #5a6c7c;
+}
+
+.reaisValor {
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.spanCarrinhoReais {
+  font-weight: 400;
+}
+
+.spanCarrinhoValor {
+  display: flex;
+  align-items: center;
+  height: 5px;
+  margin-left: 2.5px;
+  color: #5a6c7c;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.iconSetinhaDiv {
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconSetinhaAnimation {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  animation: 0.4s infinite alternate;
+  animation-name: arrow-down;
+  transform: translateY(-8px);
+}
+
+@keyframes arrow-down {
+  from {
+    transform: translateY(-8px);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+.separatorIconSetinhaDiv {
+  position: center;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  bottom: 0px;
+  height: 6px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-top: 14px;
+  background-color: #01549d;
+}
+
+.divCarrinhoDentro {
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 10px;
+  background-color: white;
+  display: none;
+  margin-top: -16px;
+  border-bottom-right-radius: 13px;
+  border-bottom-left-radius: 13px;
+  transition: 0.75s;
+  flex-direction: column;
+  z-index: 100;
+  height: auto;
+  min-height: 100px;
+  padding-bottom: 20px;
+  box-shadow: 0px 10px 10px rgba(169, 169, 169, 0.65), 0px 16px 5px transparent;
+}
