@@ -2,6 +2,21 @@
   .celular {
     display: none !important;
   }
+  .footer-data {
+    flex-direction: column;
+  }
+  .footer-contatos {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 957px) {
+  .footer-data {
+    flex-direction: column;
+  }
+  .footer-contatos {
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 450.99px) {
@@ -73,6 +88,10 @@ div {
   height: 17px;
 }
 
+.img-so-falta-eu-footer {
+  height: 25px;
+}
+
 .img-arca-parque {
   width: 245px;
 }
@@ -119,4 +138,109 @@ button img {
 button {
   font-size: 15.2px;
   text-indent: 4px;
+}
+
+.footer {
+  background-image: url('https://sofalta.eu/meuingresso/public/arcaparque/footer/footer.png');
+  min-height: 335px;
+  background-position: center;
+  background-size: cover;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer-data {
+  justify-content: space-around;
+  align-items: center;
+  width: 1000px;
+  overflow: hidden;
+  margin-bottom: 35px;
+}
+
+.contatos div {
+  height: 30px;
+}
+
+.footer .contatos {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.footer .contatos .telefone {
+  margin-bottom: 20px;
+}
+.img-arca-footer {
+  width: 25%;
+  justify-content: center;
+  align-items: center;
+}
+.footer .contatos div {
+  align-items: center;
+}
+.footer-contatos {
+  position: absolute;
+  overflow: hidden;
+}
+.arca-parque-footer {
+  width: 140px;
+}
+.div-pos-footer {
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.redes-sociais {
+  width: 25%;
+  align-items: center;
+  justify-content: space-around;
+}
+.redes-sociais img {
+  height: 27px;
+  width: 27px;
+  padding: 5px;
+}
+.coruja {
+  width: 35px !important;
+  height: 35px !important;
+}
+.float-button {
+  color: white;
+  background-color: #0c62ad;
+  position: fixed;
+  z-index: 20;
+  right: 25px;
+  bottom: 25px;
+  border-radius: 25px;
+  width: 48px;
+  height: 48px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-color: transparent;
+}
+
+.contatos div {
+  width: 100%;
+  justify-content: center;
+}
+.contatos div a {
+  width: 70%;
+  font-size: 20.8px;
+  color: #1b163c;
+  text-decoration: none;
+  font-weight: 500;
+  font-family: roboto, sans-serif !important;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.contatos div a img {
+  margin-right: 10px;
+}
+.contatos div a:hover {
+  cursor: pointer;
 }
