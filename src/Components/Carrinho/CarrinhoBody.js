@@ -3,7 +3,7 @@ import DateNow from '../Date/DateNow';
 import styles from './CarrinhoBody.module.css';
 import CarrinhoBodyFooter from './CarrinhoBodyFooter';
 
-const CarrinhoBody = () => {
+const CarrinhoBody = ({ display }) => {
   const { dia, ano, monthString } = DateNow();
   return (
     <div className={`${styles.carrinho} ${styles.carrinhoPai}`}>

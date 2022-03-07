@@ -1,7 +1,7 @@
 import React from 'react';
 
 function DateNow() {
-  let date = new Date(); //por algum motivo está tirando -1 do dia criar assim
+  let date = new Date('2022/03/11');
   let dia = date.getDate();
   let monthNumber = date.getMonth() + 1;
   let ano = date.getFullYear();

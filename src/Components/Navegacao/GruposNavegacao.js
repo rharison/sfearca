@@ -1,21 +1,9 @@
 import React from 'react';
-import UseFetch from '../../Hooks/UseFetch';
-import DateNow from '../Date/DateNow';
 import styles from './GruposNavegacao.module.css';
-import Error from '../Error';
+import { useSelector } from 'react-redux';
 
 const GruposNavegacao = () => {
-  const { dateNow } = DateNow();
-  const urlRequest = `https://sofalta.eu/api/v4/empreendimentos/arcaparque/produtos/ingressos/ingressos?data=${dateNow}`;
-  const { data, error, request } = UseFetch();
-
-  React.useEffect(() => {
-    async function fetchGroups() {
-      await request(urlRequest);
-    }
-    fetchGroups();
-  }, [request, urlRequest]);
-  if (error) return <Error error={error} />;
+  const { data } = useSelector((state) => state.produtos);
   if (data)
     return (
       <div className={`${styles.shadow} ${styles.dayPasseio}`}>
