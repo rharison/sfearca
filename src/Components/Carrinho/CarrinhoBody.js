@@ -2,13 +2,23 @@ import React from 'react';
 import DateNow from '../Date/DateNow';
 import styles from './CarrinhoBody.module.css';
 import CarrinhoBodyFooter from './CarrinhoBodyFooter';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleExpanded } from '../../store/carrinho';
 
-const CarrinhoBody = ({ display }) => {
+const CarrinhoBody = () => {
   const { dia, ano, monthString } = DateNow();
+  const isExpanded = useSelector((state) => state.carrinho.isExpanded);
+  const dispatch = useDispatch();
+
   return (
     <div className={`${styles.carrinho} ${styles.carrinhoPai}`}>
       <div
-        className={`${styles.carrinho} ${styles.shadow} ${styles.carrinhoBody} ${styles.carrinhoElement}`}
+        className={`${styles.carrinho} ${styles.shadow} ${
+          styles.carrinhoBody
+        } ${styles.carrinhoElement} ${
+          isExpanded && styles.carrinhoBodyClicked
+        }`}
+        onClick={() => dispatch(toggleExpanded())}
       >
         <div
           className={`${styles.divCarrinhoDetalhes} ${styles.carrinhoElementTop}`}

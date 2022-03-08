@@ -40,8 +40,33 @@ export const fetchProdutos = (dateNow) => async (dispatch) => {
       dispatch(fetchError(data.message));
     }
   } catch (error) {
-    dispatch(fetchError(error));
+    dispatch(
+      fetchError(
+        `Problemas ao carregar os dados do servidor, tente recarregar a página | Código do erro:  ${error}`,
+      ),
+    );
   }
+};
+
+export const onlyAllGroups = (state) => state.produtos.data?.grupos;
+export const onlyAllItens = (state) => state.produtos.data?.itens;
+export const itensForGroups = (state) => {
+  const mapGroupsForItens = new Map();
+  state.produtos.data?.grupos?.forEach((grupo) => {
+    mapGroupsForItens[grupo.id] = [];
+    state.produtos.data?.itens?.forEach((item) => {
+      if (item.grupos.includes(grupo.id))
+        mapGroupsForItens[grupo.id].push(item);
+    });
+    mapGroupsForItens[grupo.id].sort((item1, item2) => {
+      if (item1[grupo.id] < item2[grupo.id]) return 1;
+      else if (item1[grupo.id] > item2[grupo.id]) return -1;
+      return 0;
+    });
+  });
+  mapGroupsForItens.maximoQtdParcelamento =
+    state.produtos?.maximoQtdParcelamento;
+  return mapGroupsForItens;
 };
 
 export default slice.reducer;

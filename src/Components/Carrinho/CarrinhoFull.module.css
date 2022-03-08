@@ -3,38 +3,16 @@
   cursor: pointer;
 }
 
-.carrinhoPai {
-  background-color: transparent;
-  position: absolute;
-  width: 1200px;
-  justify-content: space-around;
-  z-index: 10;
-}
-
-.shadow {
-  box-shadow: 0 0 1em darkgray;
-}
-
-.carrinhoBody {
-  display: block;
-  margin-top: 43px;
-  width: 100%;
-  display: block;
-  height: 85px;
-  z-index: 1;
+.carrinhoNav {
   background-color: white;
-  position: absolute;
-  border-radius: 15px;
-  cursor: pointer;
-}
-
-.divCarrinhoDetalhes {
+  position: fixed;
   height: 90px;
-}
-
-.carrinhoElementTop {
+  width: 100%;
+  top: -90px;
+  z-index: 11;
   justify-content: space-between;
-  overflow: hidden;
+  box-shadow: 0 0 1.5em darkgrey;
+  transition: 0.5s ease;
 }
 
 .carrinhosElementsInsideTop {
@@ -67,6 +45,10 @@
   border: solid 1px #dee6ed;
 }
 
+.iconCarrinho {
+  padding-top: 2px;
+}
+
 .iconCarrinhoIcon {
   padding: 5px;
   width: auto;
@@ -76,11 +58,7 @@
   justify-content: center;
 }
 
-.iconCarrinho {
-  padding-top: 2px;
-}
-
-.quantidadeCarrinhoBody {
+.quantidadeCarrinhoNav {
   position: absolute;
   border-radius: 100%;
   height: 20px;
@@ -93,6 +71,7 @@
   margin-top: -20px;
   color: white;
   font-weight: 500;
+  padding-top: 1px;
 }
 
 .totalValor {
@@ -166,24 +145,6 @@
   background-color: #01549d;
 }
 
-.divCarrinhoDentro {
-  overflow: hidden;
-  width: 100%;
-  padding-bottom: 10px;
-  background-color: white;
-  display: none;
-  margin-top: -16px;
-  border-bottom-right-radius: 13px;
-  border-bottom-left-radius: 13px;
-  transition: 0.75s;
-  flex-direction: column;
-  z-index: 100;
-  height: auto;
-  min-height: 100px;
-  padding-bottom: 20px;
-  box-shadow: 0px 10px 10px rgba(169, 169, 169, 0.65), 0px 16px 5px transparent;
-}
-
 .dia {
   font-size: 1.8rem;
   font-weight: 500;
@@ -200,34 +161,4 @@
 .mesAno {
   flex-direction: column;
   font-size: 1rem;
-}
-
-.buttonDayPasseio {
-  background-color: transparent;
-  border: none;
-  width: 160px;
-  transition: 0.25s;
-  font-size: 0.875rem;
-  color: #5a6c7c;
-  font-family: roboto, sans-serif !important;
-  font-weight: 500;
-  line-height: 1.75;
-}
-
-.buttonDayPasseio:active {
-  background-color: rgba(1, 84, 157, 0.5);
-}
-
-.carrinhoBodyClicked {
-  margin-top: 43px;
-  display: block;
-  z-index: 1;
-  background-color: white;
-  position: absolute;
-  border-radius: 15px;
-  cursor: pointer;
-  height: 190px !important;
-  left: -1.5%;
-  width: 103% !important;
-  transition: width 0s, height 0.75s;
 }
