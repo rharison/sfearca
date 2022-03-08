@@ -6,6 +6,7 @@ import { toggleExpanded } from '../../store/carrinho';
 
 const CarrinhoFull = ({ isShow }) => {
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
+  const qtdeContador = useSelector((state) => state.carrinho.contador);
   const dispatch = useDispatch();
   const { dia, ano, monthString } = DateNow();
 
@@ -56,7 +57,7 @@ const CarrinhoFull = ({ isShow }) => {
               <div
                 className={`${styles.quantidadeCarrinho} ${styles.quantidadeCarrinhoNav}`}
               >
-                0
+                {qtdeContador}
               </div>
             </div>
             <div className={styles.totalValor}>

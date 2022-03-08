@@ -8,6 +8,7 @@ import { toggleExpanded } from '../../store/carrinho';
 const CarrinhoBody = () => {
   const { dia, ano, monthString } = DateNow();
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
+  const qtdeContador = useSelector((state) => state.carrinho.contador);
   const dispatch = useDispatch();
 
   return (
@@ -58,7 +59,7 @@ const CarrinhoBody = () => {
                   <div
                     className={`${styles.quantidadeCarrinho} ${styles.quantidadeCarrinhoBody}`}
                   >
-                    <span>0</span>
+                    <span>{qtdeContador}</span>
                   </div>
                 </div>
                 <div className={styles.totalValor}>
@@ -99,12 +100,14 @@ const CarrinhoBody = () => {
                 </svg>
                 <div className={styles.separatorIconSetinhaDiv}></div>
               </div>
+              sdfdfgdfg
             </div>
           </div>
         </div>
         <div
           className={`${styles.divCarrinhoDentro} ${styles.closeHideCarrinho} ${styles.carrinhoElement}`}
         ></div>
+        {isExpanded && <span>Nenhnum produto adiconado ao carrinho</span>}
       </div>
       <CarrinhoBodyFooter></CarrinhoBodyFooter>
     </div>

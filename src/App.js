@@ -10,9 +10,17 @@ import DateNow from './Components/Date/DateNow';
 import { itensForGroups } from './store/produtos';
 import Card from './Components/Cards/Card';
 import CarrinhoFull from './Components/Carrinho/CarrinhoFull';
+import { toggleExpanded } from './store/carrinho';
 
 function App() {
   const floatButton = document.querySelector('.float-button');
+  const isExpanded = useSelector((state) => state.carrinho.isExpanded);
+  const { loading, error, data } = useSelector((state) => state.produtos);
+  const dispatch = useDispatch();
+  const ItensforGroups = useSelector(itensForGroups);
+  const grupos = useSelector(onlyAllGroups);
+  const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
+
   floatButton.addEventListener('click', () => {
     const topDistance = 0;
     window.scroll({
@@ -21,17 +29,11 @@ function App() {
     });
   });
 
-  const { loading, error, data } = useSelector((state) => state.produtos);
-  const dispatch = useDispatch();
-
   React.useEffect(() => {
     const { dateNow } = DateNow();
     dispatch(fetchProdutos(dateNow));
   }, [dispatch]);
 
-  const ItensforGroups = useSelector(itensForGroups);
-  const grupos = useSelector(onlyAllGroups);
-  const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
   React.useEffect(() => {
     setidGroupSelecionado(grupos && grupos[0].id);
   }, [grupos]);
@@ -57,6 +59,11 @@ function App() {
   if (data)
     return (
       <div className="bodyPage">
+        <div
+          className="full"
+          onClick={() => dispatch(toggleExpanded())}
+          style={{ pointerEvents: !isExpanded ? 'none' : 'initial' }}
+        ></div>
         <CarrinhoFull isShow={positionScroll >= 420} />
         <CarrinhoBody />
         <GruposNavegacao alternateTab={alternateTab} />

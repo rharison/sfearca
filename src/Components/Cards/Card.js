@@ -1,9 +1,16 @@
 import React from 'react';
 import styles from './Card.module.css';
+import { useDispatch } from 'react-redux';
+import {
+  incrementar,
+  decrementar,
+  addInListItens,
+  deleteItemList,
+} from '../../store/carrinho';
 
 const Card = ({ item }) => {
-  const isItemJaNoCarrinho = false;
   let idadeAltura;
+  const dispatch = useDispatch();
 
   item.itens.produtos.forEach((objectItem) => {
     let alturaMinima = objectItem['altura_minima']
@@ -38,6 +45,46 @@ const Card = ({ item }) => {
           .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
           .split(/\s/)[1];
   };
+
+  const [qtdeItem, setQtdeItem] = React.useState(0);
+  React.useEffect(() => {
+    if (qtdeItem > 0) {
+      const objPayload = {
+        [item.iditens]: {
+          nome: item.nome,
+          quantidade: qtdeItem,
+          valorUnitario: valorVendaItem,
+        },
+      };
+      dispatch(addInListItens(objPayload));
+    } else {
+      dispatch(deleteItemList(item.iditens));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qtdeItem]);
+
+  function handleClickBtnComprar() {
+    if (qtdeItem === 0) {
+      setQtdeItem(1);
+      console.log(qtdeItem);
+      dispatch(incrementar());
+    }
+  }
+
+  function handleClickAddOrSub(operation) {
+    switch (operation) {
+      case 'add':
+        setQtdeItem((qtdAnterior) => qtdAnterior + 1);
+        dispatch(incrementar());
+        break;
+      case 'sub':
+        setQtdeItem((qtdAnterior) => qtdAnterior - 1);
+        dispatch(decrementar());
+        break;
+      default:
+        return null;
+    }
+  }
 
   return (
     <section className={`${styles.card} ${styles.shadow}`}>
@@ -119,29 +166,28 @@ const Card = ({ item }) => {
             className={styles.buttonCardFull}
             id={item.iditens}
             value={item.iditens}
-            style={
-              isItemJaNoCarrinho ? { display: 'none' } : { display: 'block' }
-            }
+            style={qtdeItem > 0 ? { display: 'none' } : { display: 'block' }}
+            onClick={handleClickBtnComprar}
           >
             Comprar
           </button>
           <div
             id={item.iditens}
-            style={
-              isItemJaNoCarrinho ? { display: 'flex' } : { display: 'none' }
-            }
+            style={qtdeItem > 0 ? { display: 'flex' } : { display: 'none' }}
             className={`${styles.paiButtonCardCompra} ${styles.paiButtonCardCompraAfter}`}
           >
             <button
               value={item.iditens}
               className={`${styles.buttonCard} ${styles.buttonCardLateral} ${styles.buttonEsquerdo}`}
+              onClick={() => handleClickAddOrSub('sub')}
             >
               -
             </button>
-            <span className={styles.spanText}>{0}</span>
+            <span className={styles.spanText}>{qtdeItem}</span>
             <button
               value={item.iditens}
               className={`${styles.buttonCard} ${styles.buttonCardLateral} ${styles.buttonDireito}`}
+              onClick={() => handleClickAddOrSub('add')}
             >
               +
             </button>
