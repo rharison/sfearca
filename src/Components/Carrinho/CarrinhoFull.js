@@ -9,6 +9,13 @@ const CarrinhoFull = ({ isShow }) => {
   const qtdeContador = useSelector((state) => state.carrinho.contador);
   const dispatch = useDispatch();
   const { dia, ano, monthString } = DateNow();
+  const valorCarrinhoCents = useSelector(
+    (state) => state.carrinho.valorCarrinho,
+  );
+  const valorCarrinhoReal = (valorCarrinhoCents / 100).toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    currency: 'BRL',
+  });
 
   function handleClick() {
     window.scroll({
@@ -73,7 +80,7 @@ const CarrinhoFull = ({ isShow }) => {
                 <span
                   className={`${styles.spanCarrinho} ${styles.spanCarrinhoValor}`}
                 >
-                  0,00
+                  {valorCarrinhoReal}
                 </span>
               </div>
             </div>

@@ -5,7 +5,7 @@ import CarrinhoBody from './Components/Carrinho/CarrinhoBody';
 import GruposNavegacao from './Components/Navegacao/GruposNavegacao';
 import Loading from './Components/Loading';
 import Error from './Components/Error';
-import { fetchProdutos, onlyAllGroups } from './store/produtos';
+import { fetchProdutos, onlyAllGroups, onlyAllItens } from './store/produtos';
 import DateNow from './Components/Date/DateNow';
 import { itensForGroups } from './store/produtos';
 import Card from './Components/Cards/Card';
@@ -17,9 +17,11 @@ function App() {
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const { loading, error, data } = useSelector((state) => state.produtos);
   const dispatch = useDispatch();
+  const allItens = useSelector(onlyAllItens);
   const ItensforGroups = useSelector(itensForGroups);
   const grupos = useSelector(onlyAllGroups);
   const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
+  const [positionScroll, setPositionScroll] = React.useState(0);
 
   floatButton.addEventListener('click', () => {
     const topDistance = 0;
@@ -38,10 +40,6 @@ function App() {
     setidGroupSelecionado(grupos && grupos[0].id);
   }, [grupos]);
 
-  function alternateTab(id) {
-    setidGroupSelecionado(id);
-  }
-
   React.useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -49,9 +47,12 @@ function App() {
     };
   }, []);
 
-  const [positionScroll, setPositionScroll] = React.useState(0);
   function handleScroll() {
     setPositionScroll(window.scrollY);
+  }
+
+  function alternateTab(id) {
+    setidGroupSelecionado(id);
   }
 
   if (loading) return <Loading />;
@@ -69,7 +70,7 @@ function App() {
         <GruposNavegacao alternateTab={alternateTab} />
         <div className="cards">
           {ItensforGroups[idGroupSelecionado]?.map((item) => (
-            <Card key={item.iditens} item={item} />
+            <Card key={item.iditens} item={item} allItens={allItens} />
           ))}
         </div>
       </div>

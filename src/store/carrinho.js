@@ -5,19 +5,27 @@ const slice = createSlice({
   initialState: {
     isExpanded: false,
     contador: 0,
+    valorCarrinho: 0,
     listItens: null,
   },
   reducers: {
     toggleExpanded(state) {
       state.isExpanded = !state.isExpanded;
     },
-    incrementar(state) {
-      state.contador++;
+    incrementar(state, action) {
+      if (typeof action.payload === 'object') {
+        state.contador += action.payload.quantidadeItem;
+        state.valorCarrinho += action.payload.valorTotal;
+      } else {
+        state.contador++;
+        state.valorCarrinho += action.payload;
+      }
     },
-    decrementar(state) {
+    decrementar(state, action) {
       state.contador--;
+      state.valorCarrinho -= action.payload;
     },
-    addInListItens(state, action) {
+    updateItenslist(state, action) {
       if (!state.listItens) state.listItens = {};
       state.listItens = Object.assign({ ...state.listItens }, action.payload);
       window.localStorage.setItem('listItens', JSON.stringify(state.listItens));
@@ -40,7 +48,7 @@ export const {
   toggleExpanded,
   incrementar,
   decrementar,
-  addInListItens,
+  updateItenslist,
   deleteItemList,
 } = slice.actions;
 export default slice.reducer;

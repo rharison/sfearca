@@ -1,16 +1,117 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Card.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   incrementar,
   decrementar,
-  addInListItens,
+  updateItenslist,
   deleteItemList,
 } from '../../store/carrinho';
 
 const Card = ({ item }) => {
   let idadeAltura;
+  const isValorSameOriginal = true;
+  const valorVendaItem = item.tarifarios[0].valor;
   const dispatch = useDispatch();
+  const listItens = useSelector((state) => state.carrinho.listItens);
+  const [qtdeItem, setQtdeItem] = React.useState(0);
+  const haveItemInReduxListItens =
+    !!listItens && Object.values(listItens).length > 0;
+  const [haveItemInLocalStorage, setHaveItemInLocalStorage] =
+    React.useState(false);
+  const objItensLocalStorage = !!window.localStorage.getItem('listItens')
+    ? JSON.parse(window.localStorage.getItem('listItens'))
+    : {};
+
+  React.useEffect(() => {
+    setHaveItemInLocalStorage(!!Object.values(objItensLocalStorage).length);
+    function haveEspecificItemInReduxList(idItem) {
+      if (!listItens[`${idItem}`]) return false;
+      return listItens[`${idItem}`];
+    }
+
+    if (haveItemInReduxListItens) {
+      const ItemReduxList = haveEspecificItemInReduxList(item.iditens);
+      if (ItemReduxList) {
+        setQtdeItem(ItemReduxList.quantidade);
+        return;
+      }
+      return;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (haveItemInLocalStorage) {
+      const ItemLocalStorage = haveEspecificItemInLocalStorage(item.iditens);
+      if (ItemLocalStorage) {
+        setQtdeItem(ItemLocalStorage.quantidade);
+        const quantidadeItem = ItemLocalStorage.quantidade;
+        const valorUnitarioItem = ItemLocalStorage.valorUnitario;
+        const valorTotal = valorUnitarioItem * quantidadeItem;
+        dispatch(
+          incrementar({
+            quantidadeItem: quantidadeItem,
+            valorTotal: valorTotal,
+          }),
+        );
+        return;
+      }
+    }
+
+    function haveEspecificItemInLocalStorage(idItem) {
+      if (!objItensLocalStorage[`${idItem}`]) return false;
+      return objItensLocalStorage[`${idItem}`];
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [haveItemInLocalStorage]);
+
+  React.useEffect(() => {
+    if (qtdeItem > 0) {
+      const objPayload = {
+        [item.iditens]: {
+          nome: item.nome,
+          quantidade: qtdeItem,
+          valorUnitario: valorVendaItem,
+        },
+      };
+      dispatch(updateItenslist(objPayload));
+    } else {
+      dispatch(deleteItemList(item.iditens));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qtdeItem]);
+
+  function handleClickBtnComprar() {
+    if (qtdeItem === 0) {
+      setQtdeItem(1);
+      dispatch(incrementar(valorVendaItem));
+    }
+  }
+
+  function handleClickAddOrSub(operation) {
+    switch (operation) {
+      case 'add':
+        setQtdeItem((qtdAnterior) => qtdAnterior + 1);
+        dispatch(incrementar(valorVendaItem));
+        break;
+      case 'sub':
+        setQtdeItem((qtdAnterior) => qtdAnterior - 1);
+        dispatch(decrementar(valorVendaItem));
+        break;
+      default:
+        return null;
+    }
+  }
+
+  const addVirgula = (valor) => {
+    return valor === 0
+      ? '0,00'
+      : (valor / 100)
+          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+          .split(/\s/)[1];
+  };
 
   item.itens.produtos.forEach((objectItem) => {
     let alturaMinima = objectItem['altura_minima']
@@ -33,57 +134,6 @@ const Card = ({ item }) => {
         idadeAltura = `Idade máxima ${objectItem['idade_maxima'] ?? ''} anos`;
       }
     });
-  }
-
-  const valorVendaItem = item.tarifarios[0].valor;
-  let isValorSameOriginal = true;
-
-  const addVirgula = (valor) => {
-    return valor === 0
-      ? '0,00'
-      : (valor / 100)
-          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-          .split(/\s/)[1];
-  };
-
-  const [qtdeItem, setQtdeItem] = React.useState(0);
-  React.useEffect(() => {
-    if (qtdeItem > 0) {
-      const objPayload = {
-        [item.iditens]: {
-          nome: item.nome,
-          quantidade: qtdeItem,
-          valorUnitario: valorVendaItem,
-        },
-      };
-      dispatch(addInListItens(objPayload));
-    } else {
-      dispatch(deleteItemList(item.iditens));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [qtdeItem]);
-
-  function handleClickBtnComprar() {
-    if (qtdeItem === 0) {
-      setQtdeItem(1);
-      console.log(qtdeItem);
-      dispatch(incrementar());
-    }
-  }
-
-  function handleClickAddOrSub(operation) {
-    switch (operation) {
-      case 'add':
-        setQtdeItem((qtdAnterior) => qtdAnterior + 1);
-        dispatch(incrementar());
-        break;
-      case 'sub':
-        setQtdeItem((qtdAnterior) => qtdAnterior - 1);
-        dispatch(decrementar());
-        break;
-      default:
-        return null;
-    }
   }
 
   return (
@@ -183,6 +233,7 @@ const Card = ({ item }) => {
             >
               -
             </button>
+            {}
             <span className={styles.spanText}>{qtdeItem}</span>
             <button
               value={item.iditens}

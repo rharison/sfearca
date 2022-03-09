@@ -9,6 +9,14 @@ const CarrinhoBody = () => {
   const { dia, ano, monthString } = DateNow();
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const qtdeContador = useSelector((state) => state.carrinho.contador);
+  const valorCarrinhoCents = useSelector(
+    (state) => state.carrinho.valorCarrinho,
+  );
+  const valorCarrinhoReal = (valorCarrinhoCents / 100).toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    currency: 'BRL',
+  });
+
   const dispatch = useDispatch();
 
   return (
@@ -75,7 +83,7 @@ const CarrinhoBody = () => {
                     <span
                       className={`${styles.spanCarrinho} ${styles.spanCarrinhoValor}`}
                     >
-                      0,00
+                      {valorCarrinhoReal}
                     </span>
                   </div>
                 </div>
