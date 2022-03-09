@@ -8,11 +8,13 @@ import {
   incrementar,
   updateItenslist,
 } from '../../store/carrinho';
+import ItemList from './ItemList';
 
 const CarrinhoBody = ({ allItens }) => {
   const { dia, ano, monthString } = DateNow();
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const qtdeContador = useSelector((state) => state.carrinho.contador);
+  const listItens = useSelector((state) => state.carrinho.listItens);
   const valorCarrinhoCents = useSelector(
     (state) => state.carrinho.valorCarrinho,
   );
@@ -54,6 +56,7 @@ const CarrinhoBody = ({ allItens }) => {
       if (!objItensLocalStorage[`${idItem}`]) return false;
       return objItensLocalStorage[`${idItem}`];
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dispatch = useDispatch();
@@ -147,14 +150,24 @@ const CarrinhoBody = ({ allItens }) => {
                 </svg>
                 <div className={styles.separatorIconSetinhaDiv}></div>
               </div>
-              sdfdfgdfg
             </div>
           </div>
         </div>
+
         <div
           className={`${styles.divCarrinhoDentro} ${styles.closeHideCarrinho} ${styles.carrinhoElement}`}
-        ></div>
-        {isExpanded && <span>Nenhnum produto adiconado ao carrinho</span>}
+          style={isExpanded ? { display: 'flex' } : { display: 'none' }}
+        >
+          {Object.values(listItens).length > 0 ? (
+            Object.entries(listItens).map((item) => (
+              <ItemList key={item[1].nome} item={item} />
+            ))
+          ) : (
+            <div className={styles.nenhumItemSelecionado}>
+              Nenhum produto adiconado ao carrinho
+            </div>
+          )}
+        </div>
       </div>
       <CarrinhoBodyFooter></CarrinhoBodyFooter>
     </div>

@@ -231,3 +231,11 @@
   width: 103% !important;
   transition: width 0s, height 0.75s;
 }
+
+.nenhumItemSelecionado {
+  margin-top: 40px;
+  justify-content: center;
+  height: 100%;
+  color: #5a6c7c;
+  font-size: 1.1em;
+}

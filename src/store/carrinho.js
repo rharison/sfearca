@@ -6,7 +6,7 @@ const slice = createSlice({
     isExpanded: false,
     contador: 0,
     valorCarrinho: 0,
-    listItens: null,
+    listItens: {},
   },
   reducers: {
     toggleExpanded(state) {
