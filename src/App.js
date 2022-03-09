@@ -66,7 +66,7 @@ function App() {
           style={{ pointerEvents: !isExpanded ? 'none' : 'initial' }}
         ></div>
         <CarrinhoFull isShow={positionScroll >= 420} />
-        <CarrinhoBody />
+        <CarrinhoBody allItens={allItens} />
         <GruposNavegacao alternateTab={alternateTab} />
         <div className="cards">
           {ItensforGroups[idGroupSelecionado]?.map((item) => (

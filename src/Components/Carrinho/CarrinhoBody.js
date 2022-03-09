@@ -3,9 +3,13 @@ import DateNow from '../Date/DateNow';
 import styles from './CarrinhoBody.module.css';
 import CarrinhoBodyFooter from './CarrinhoBodyFooter';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleExpanded } from '../../store/carrinho';
+import {
+  toggleExpanded,
+  incrementar,
+  updateItenslist,
+} from '../../store/carrinho';
 
-const CarrinhoBody = () => {
+const CarrinhoBody = ({ allItens }) => {
   const { dia, ano, monthString } = DateNow();
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const qtdeContador = useSelector((state) => state.carrinho.contador);
@@ -16,6 +20,41 @@ const CarrinhoBody = () => {
     minimumFractionDigits: 2,
     currency: 'BRL',
   });
+
+  React.useEffect(() => {
+    const objItensLocalStorage = !!window.localStorage.getItem('listItens')
+      ? JSON.parse(window.localStorage.getItem('listItens'))
+      : {};
+    if (!!Object.values(objItensLocalStorage).length) {
+      allItens.forEach((item) => {
+        const ItemLocalStorage = haveEspecificItemInLocalStorage(item.iditens);
+        if (ItemLocalStorage) {
+          const quantidadeItem = ItemLocalStorage.quantidade;
+          const valorUnitarioItem = ItemLocalStorage.valorUnitario;
+          const valorTotal = valorUnitarioItem * quantidadeItem;
+          dispatch(
+            incrementar({
+              quantidadeItem: quantidadeItem,
+              valorTotal: valorTotal,
+            }),
+          );
+          const objPayload = {
+            [item.iditens]: {
+              nome: item.nome,
+              quantidade: quantidadeItem,
+              valorUnitario: valorUnitarioItem,
+            },
+          };
+          dispatch(updateItenslist(objPayload));
+        }
+      });
+    }
+
+    function haveEspecificItemInLocalStorage(idItem) {
+      if (!objItensLocalStorage[`${idItem}`]) return false;
+      return objItensLocalStorage[`${idItem}`];
+    }
+  }, []);
 
   const dispatch = useDispatch();
 

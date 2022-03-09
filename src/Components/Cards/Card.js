@@ -25,11 +25,6 @@ const Card = ({ item }) => {
 
   React.useEffect(() => {
     setHaveItemInLocalStorage(!!Object.values(objItensLocalStorage).length);
-    function haveEspecificItemInReduxList(idItem) {
-      if (!listItens[`${idItem}`]) return false;
-      return listItens[`${idItem}`];
-    }
-
     if (haveItemInReduxListItens) {
       const ItemReduxList = haveEspecificItemInReduxList(item.iditens);
       if (ItemReduxList) {
@@ -37,6 +32,11 @@ const Card = ({ item }) => {
         return;
       }
       return;
+    }
+
+    function haveEspecificItemInReduxList(idItem) {
+      if (!listItens[`${idItem}`]) return false;
+      return listItens[`${idItem}`];
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -46,15 +46,6 @@ const Card = ({ item }) => {
       const ItemLocalStorage = haveEspecificItemInLocalStorage(item.iditens);
       if (ItemLocalStorage) {
         setQtdeItem(ItemLocalStorage.quantidade);
-        const quantidadeItem = ItemLocalStorage.quantidade;
-        const valorUnitarioItem = ItemLocalStorage.valorUnitario;
-        const valorTotal = valorUnitarioItem * quantidadeItem;
-        dispatch(
-          incrementar({
-            quantidadeItem: quantidadeItem,
-            valorTotal: valorTotal,
-          }),
-        );
         return;
       }
     }
@@ -63,7 +54,6 @@ const Card = ({ item }) => {
       if (!objItensLocalStorage[`${idItem}`]) return false;
       return objItensLocalStorage[`${idItem}`];
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveItemInLocalStorage]);
 
