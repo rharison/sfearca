@@ -1,7 +1,15 @@
 @media only screen and (max-width: 450.99px) {
-  .button-carrinho-footer {
+  .buttonCarrinhoFooter {
     height: 40px !important;
     width: calc(100% - 10px) !important;
+  }
+
+  .carrinhoBodyFooter {
+    padding-top: 30px !important;
+    margin-top: 100px !important;
+    justify-content: flex-end !important;
+    height: 100px !important;
+    flex-direction: column !important;
   }
 }
 

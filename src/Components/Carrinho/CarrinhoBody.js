@@ -12,6 +12,7 @@ import ItemList from './ItemList';
 
 const CarrinhoBody = ({ allItens }) => {
   const { dia, ano, monthString } = DateNow();
+  const dispatch = useDispatch();
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const qtdeContador = useSelector((state) => state.carrinho.contador);
   const listItens = useSelector((state) => state.carrinho.listItens);
@@ -58,8 +59,6 @@ const CarrinhoBody = ({ allItens }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const dispatch = useDispatch();
 
   return (
     <div className={`${styles.carrinho} ${styles.carrinhoPai}`}>

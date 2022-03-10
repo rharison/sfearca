@@ -1,11 +1,11 @@
 @media only screen and (max-width: 450.99px) {
-  .day-passeio {
+  .dayPasseio {
     margin-top: 260px !important;
   }
 }
 
 @media only screen and (max-width: 1200px) {
-  .day-passeio {
+  .dayPasseio {
     width: calc(95% - 1.5%) !important;
     left: 2.5% !important;
   }

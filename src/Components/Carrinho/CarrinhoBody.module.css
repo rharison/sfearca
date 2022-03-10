@@ -5,6 +5,13 @@
   }
 }
 
+@media only screen and (max-width: 1200px) {
+  .carrinhoPai {
+    width: 95% !important;
+    left: 2.5% !important;
+  }
+}
+
 .carrinho {
   transition: height 0.75s, width 0s;
   cursor: pointer;
