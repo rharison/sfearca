@@ -158,6 +158,15 @@ const CarrinhoBody = ({ allItens }) => {
           className={`${styles.divCarrinhoDentro} ${styles.closeHideCarrinho} ${styles.carrinhoElement}`}
           style={isExpanded ? { display: 'flex' } : { display: 'none' }}
         >
+          {Object.values(listItens).length > 0 && (
+            <div className={styles.diaSelecionado}>
+              <span className={styles.diaSelecionadoDia}>
+                {dia} de {monthString} de {ano}
+              </span>
+              <span className={styles.diaSelecionadoText}>Dia selecionado</span>
+            </div>
+          )}
+
           {Object.values(listItens).length > 0 ? (
             Object.entries(listItens).map((item) => (
               <ItemList key={item[1].nome} item={item} />
@@ -165,6 +174,54 @@ const CarrinhoBody = ({ allItens }) => {
           ) : (
             <div className={styles.nenhumItemSelecionado}>
               Nenhum produto adiconado ao carrinho
+            </div>
+          )}
+
+          {Object.values(listItens).length > 0 && (
+            <div className={styles.bottomCarrinhoHideFinalizarCompra}>
+              <button
+                className={`${styles.buttonCarrinhoFooter} ${styles.buttonCarrinhoFooterLeft}`}
+              >
+                <span className={styles.outroDia}>Comprar para outro dia</span>
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ width: '17px', height: '17px', marginRight: '5px' }}
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </button>
+              <button
+                name="finalizar-venda"
+                className={`${styles.buttonCarrinhoFooter} ${styles.buttonCarrinhoFooterRigth}`}
+              >
+                <span>Finalizar Compra</span>
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ width: '21px', height: '21px', marginTop: '2px' }}
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
             </div>
           )}
         </div>
