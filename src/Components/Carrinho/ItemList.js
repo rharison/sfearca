@@ -1,7 +1,15 @@
 import React from 'react';
 import styles from './ItemList.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  toggleExpanded,
+  deleteItemList,
+  decrementar,
+} from '../../store/carrinho';
 
 const ItemList = ({ item }) => {
+  const listItens = useSelector((state) => state.carrinho.listItens);
+  const dispatch = useDispatch();
   const addVirgula = (valor) => {
     return valor === 0
       ? '0,00'
@@ -9,6 +17,18 @@ const ItemList = ({ item }) => {
           .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
           .split(/\s/)[1];
   };
+
+  function handleClickIconDeleteITen() {
+    dispatch(deleteItemList(item[0]));
+    dispatch(
+      decrementar({
+        quantidade: item[1].quantidade,
+        valorTotal: item[1].quantidade * item[1].valorUnitario,
+      }),
+    );
+    const moreItemInList = Object.values(listItens).length === 1;
+    if (!moreItemInList) dispatch(toggleExpanded());
+  }
 
   return (
     <div className={styles.listItensCarrinho}>
@@ -29,6 +49,7 @@ const ItemList = ({ item }) => {
             height="1em"
             width="1em"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={handleClickIconDeleteITen}
           >
             <polyline
               className={styles.itemSvg}

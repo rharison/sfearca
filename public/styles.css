@@ -207,21 +207,6 @@ button {
   width: 35px !important;
   height: 35px !important;
 }
-.float-button {
-  color: white;
-  background-color: #0c62ad;
-  position: fixed;
-  z-index: 20;
-  right: 25px;
-  bottom: 25px;
-  border-radius: 25px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-color: transparent;
-}
 
 .contatos div {
   width: 100%;

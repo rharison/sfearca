@@ -13,7 +13,6 @@ import CarrinhoFull from './Components/Carrinho/CarrinhoFull';
 import { toggleExpanded } from './store/carrinho';
 
 function App() {
-  const floatButton = document.querySelector('.float-button');
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const { loading, error, data } = useSelector((state) => state.produtos);
   const dispatch = useDispatch();
@@ -22,14 +21,6 @@ function App() {
   const grupos = useSelector(onlyAllGroups);
   const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
   const [positionScroll, setPositionScroll] = React.useState(0);
-
-  floatButton.addEventListener('click', () => {
-    const topDistance = 0;
-    window.scroll({
-      top: topDistance,
-      behavior: 'smooth',
-    });
-  });
 
   React.useEffect(() => {
     const { dateNow } = DateNow();
@@ -46,6 +37,13 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  function handleClickFloatButton() {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
   function handleScroll() {
     setPositionScroll(window.scrollY);
@@ -73,6 +71,24 @@ function App() {
             <Card key={item.iditens} item={item} allItens={allItens} />
           ))}
         </div>
+        {positionScroll >= 420 && (
+          <button className="floatButton" onClick={handleClickFloatButton}>
+            <svg
+              stroke="currentColor"
+              fill="none"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </button>
+        )}
       </div>
     );
   else return null;

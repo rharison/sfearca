@@ -22,8 +22,14 @@ const slice = createSlice({
       }
     },
     decrementar(state, action) {
-      state.contador--;
-      state.valorCarrinho -= action.payload;
+      if (typeof action.payload === 'object') {
+        console.log('Veio OBJ');
+        state.contador -= action.payload.quantidade;
+        state.valorCarrinho -= action.payload.valorTotal;
+      } else {
+        state.contador--;
+        state.valorCarrinho -= action.payload;
+      }
     },
     updateItenslist(state, action) {
       if (!state.listItens) state.listItens = {};

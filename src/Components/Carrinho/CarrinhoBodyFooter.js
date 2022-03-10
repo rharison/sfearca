@@ -2,6 +2,15 @@ import React from 'react';
 import styles from './CarrinhoBodyFooter.module.css';
 
 const CarrinhoBodyFooter = () => {
+  const [currentWidthWindowClient, setCurrentWidthWindowClient] =
+    React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    window.addEventListener('resize', () =>
+      setCurrentWidthWindowClient(window.innerWidth),
+    );
+  }, []);
+
   return (
     <div
       className={`${styles.carrinho} ${styles.carrinhoBodyFooter} ${styles.carrinhoElement}`}
@@ -9,7 +18,11 @@ const CarrinhoBodyFooter = () => {
       <button
         className={`${styles.buttonCarrinhoFooter} ${styles.buttonCarrinhoFooterLeft}`}
       >
-        <span className={styles.outroDia}>Comprar para outro dia</span>
+        <span>
+          {currentWidthWindowClient < 546
+            ? 'Outro dia'
+            : 'Comprar para outro dia'}
+        </span>
         <svg
           stroke="currentColor"
           fill="none"
