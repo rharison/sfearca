@@ -33,11 +33,6 @@ const Card = ({ item }) => {
       }
       return;
     }
-
-    function haveEspecificItemInReduxList(idItem) {
-      if (!listItens[`${idItem}`]) return false;
-      return listItens[`${idItem}`];
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -72,6 +67,11 @@ const Card = ({ item }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtdeItem]);
+
+  function haveEspecificItemInReduxList(idItem) {
+    if (!listItens[`${idItem}`]) return false;
+    return listItens[`${idItem}`];
+  }
 
   function handleClickBtnComprar() {
     if (qtdeItem === 0) {
@@ -238,5 +238,4 @@ const Card = ({ item }) => {
     </section>
   );
 };
-
 export default Card;

@@ -23,7 +23,6 @@ const slice = createSlice({
     },
     decrementar(state, action) {
       if (typeof action.payload === 'object') {
-        console.log('Veio OBJ');
         state.contador -= action.payload.quantidade;
         state.valorCarrinho -= action.payload.valorTotal;
       } else {
