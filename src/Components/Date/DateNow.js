@@ -1,7 +1,5 @@
-import React from 'react';
-
 function DateNow() {
-  let date = new Date('2022/03/11');
+  let date = new Date();
   let dia = date.getDate();
   let monthNumber = date.getMonth() + 1;
   let ano = date.getFullYear();
