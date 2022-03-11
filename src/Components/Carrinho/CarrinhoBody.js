@@ -200,6 +200,7 @@ const CarrinhoBody = ({ allItens }) => {
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
               </button>
+
               <button
                 name="finalizar-venda"
                 className={`${styles.buttonCarrinhoFooter} ${styles.buttonCarrinhoFooterRigth}`}
