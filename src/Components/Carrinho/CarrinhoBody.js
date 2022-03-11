@@ -168,7 +168,7 @@ const CarrinhoBody = ({ allItens }) => {
 
           {Object.values(listItens).length > 0 ? (
             Object.entries(listItens).map((item) => (
-              <ItemList key={item[1].nome} item={item} />
+              <ItemList key={item[1]?.nome} item={item} />
             ))
           ) : (
             <div className={styles.nenhumItemSelecionado}>

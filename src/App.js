@@ -22,8 +22,6 @@ function App() {
   const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
   const [positionScroll, setPositionScroll] = React.useState(0);
 
-  this.test = 0;
-
   React.useEffect(() => {
     const { dateNow } = DateNow();
     dispatch(fetchProdutos(dateNow));

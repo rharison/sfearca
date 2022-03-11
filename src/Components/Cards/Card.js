@@ -14,92 +14,61 @@ const Card = ({ item }) => {
   const valorVendaItem = item.tarifarios[0].valor;
   const dispatch = useDispatch();
   const listItens = useSelector((state) => state.carrinho.listItens);
-  const [qtdeItem, setQtdeItem] = React.useState(0);
-  const haveItemInReduxListItens =
-    !!listItens && Object.values(listItens).length > 0;
-  const [haveItemInLocalStorage, setHaveItemInLocalStorage] =
-    React.useState(false);
-  const objItensLocalStorage = !!window.localStorage.getItem('listItens')
-    ? JSON.parse(window.localStorage.getItem('listItens'))
-    : {};
+  const [itemListRedux, setItemListRedux] = React.useState(null);
 
   React.useEffect(() => {
-    setHaveItemInLocalStorage(!!Object.values(objItensLocalStorage).length);
-    if (haveItemInReduxListItens) {
-      const ItemReduxList = haveEspecificItemInReduxList(item.iditens);
-      if (ItemReduxList) {
-        setQtdeItem(ItemReduxList.quantidade);
-        return;
-      }
-      return;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect(() => {
-    if (haveItemInLocalStorage) {
-      const ItemLocalStorage = haveEspecificItemInLocalStorage(item.iditens);
-      if (ItemLocalStorage) {
-        setQtdeItem(ItemLocalStorage.quantidade);
-        return;
-      }
-    }
-
-    function haveEspecificItemInLocalStorage(idItem) {
-      if (!objItensLocalStorage[`${idItem}`]) return false;
-      return objItensLocalStorage[`${idItem}`];
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [haveItemInLocalStorage]);
-
-  React.useEffect(() => {
-    if (qtdeItem > 0) {
-      const objPayload = {
-        [item.iditens]: {
-          nome: item.nome,
-          quantidade: qtdeItem,
-          valorUnitario: valorVendaItem,
-        },
-      };
-      dispatch(updateItenslist(objPayload));
-      return;
-    }
-    console.log('bilu');
-    if (haveEspecificItemInReduxList(item.iditens)) {
-      dispatch(deleteItemList(item.iditens));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [qtdeItem]);
-
-  React.useEffect(() => {
-    const itemListRedux = haveEspecificItemInReduxList(item.iditens);
-    if (haveItemInReduxListItens && itemListRedux) {
-      setQtdeItem(itemListRedux.quantidade);
-      return;
+    setItemListRedux(haveEspecificItemInReduxList(item.iditens));
+    function haveEspecificItemInReduxList(idItem) {
+      return listItens[`${idItem}`];
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listItens]);
 
-  function haveEspecificItemInReduxList(idItem) {
-    return listItens[`${idItem}`];
-  }
+  function updateListItem(operation) {
+    const objPayload = {
+      [item.iditens]: {
+        nome: item.nome,
+        quantidade: 0,
+        valorUnitario: valorVendaItem,
+      },
+    };
 
-  function handleClickBtnComprar() {
-    if (qtdeItem === 0) {
-      setQtdeItem(1);
-      dispatch(incrementar(valorVendaItem));
-    }
-  }
-
-  function handleClickAddOrSub(operation) {
     switch (operation) {
+      case 'comprar':
+        objPayload[item.iditens].quantidade = 1;
+        break;
       case 'add':
-        setQtdeItem((qtdAnterior) => qtdAnterior + 1);
-        dispatch(incrementar(valorVendaItem));
+        objPayload[item.iditens].quantidade = itemListRedux.quantidade;
+        objPayload[item.iditens].quantidade++;
         break;
       case 'sub':
-        setQtdeItem((qtdAnterior) => qtdAnterior - 1);
+        objPayload[item.iditens].quantidade = itemListRedux.quantidade;
+        if (objPayload[item.iditens].quantidade === 1) {
+          dispatch(deleteItemList(item.iditens));
+          return;
+        } else {
+          objPayload[item.iditens].quantidade--;
+        }
+        break;
+      default:
+        return null;
+    }
+
+    dispatch(updateItenslist(objPayload));
+  }
+  function handleClickAddOrSub(operation) {
+    switch (operation) {
+      case 'comprar':
+        dispatch(incrementar(valorVendaItem));
+        updateListItem(operation);
+        break;
+      case 'add':
+        dispatch(incrementar(valorVendaItem));
+        updateListItem(operation);
+        break;
+      case 'sub':
         dispatch(decrementar(valorVendaItem));
+        updateListItem(operation);
         break;
       default:
         return null;
@@ -217,14 +186,14 @@ const Card = ({ item }) => {
             className={styles.buttonCardFull}
             id={item.iditens}
             value={item.iditens}
-            style={qtdeItem > 0 ? { display: 'none' } : { display: 'block' }}
-            onClick={handleClickBtnComprar}
+            style={itemListRedux ? { display: 'none' } : { display: 'block' }}
+            onClick={() => handleClickAddOrSub('comprar')}
           >
             Comprar
           </button>
           <div
             id={item.iditens}
-            style={qtdeItem > 0 ? { display: 'flex' } : { display: 'none' }}
+            style={itemListRedux ? { display: 'flex' } : { display: 'none' }}
             className={`${styles.paiButtonCardCompra} ${styles.paiButtonCardCompraAfter}`}
           >
             <button
@@ -234,7 +203,7 @@ const Card = ({ item }) => {
             >
               -
             </button>
-            <span className={styles.spanText}>{qtdeItem}</span>
+            <span className={styles.spanText}>{itemListRedux?.quantidade}</span>
             <button
               value={item.iditens}
               className={`${styles.buttonCard} ${styles.buttonCardLateral} ${styles.buttonDireito}`}
