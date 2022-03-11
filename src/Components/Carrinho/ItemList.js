@@ -10,6 +10,8 @@ import {
 const ItemList = ({ item }) => {
   const listItens = useSelector((state) => state.carrinho.listItens);
   const dispatch = useDispatch();
+  const idItem = item[0];
+  const propriedadesItem = item[1];
   const addVirgula = (valor) => {
     return valor === 0
       ? '0,00'
@@ -19,28 +21,31 @@ const ItemList = ({ item }) => {
   };
 
   function handleClickIconDeleteIten() {
-    dispatch(deleteItemList(item[0]));
-
+    dispatch(deleteItemList(idItem));
     dispatch(
       decrementar({
-        quantidade: item[1].quantidade,
-        valorTotal: item[1].quantidade * item[1].valorUnitario,
+        quantidade: propriedadesItem.quantidade,
+        valorTotal:
+          propriedadesItem.quantidade * propriedadesItem.valorUnitario,
       }),
     );
 
-    const moreItemInList = Object.values(listItens).length === 1;
-    if (!moreItemInList) dispatch(toggleExpanded());
+    const haveMoreItemInList = Object.values(listItens).length === 1;
+    if (!haveMoreItemInList) dispatch(toggleExpanded());
   }
 
   return (
     <div className={styles.listItensCarrinho}>
-      <div className={styles.listItensCarrinhoLeft}>{item[1].nome}</div>
+      <div className={styles.listItensCarrinhoLeft}>
+        {' '}
+        {propriedadesItem.nome}
+      </div>
       <div className={styles.listItensCarrinhoRigth}>
-        <span>{item[1].quantidade}x</span>
-        <span>R$ {addVirgula(item[1].valorUnitario)}</span>
+        <span>{propriedadesItem.quantidade}x</span>
+        <span>R$ {addVirgula(propriedadesItem.valorUnitario)}</span>
         <div className={styles.itemSvg}>
           <svg
-            name={item[1].nome}
+            name={propriedadesItem.nome}
             className={styles.deleteItemCarrinho}
             stroke="currentColor"
             fill="none"
