@@ -5,11 +5,13 @@ import { onlyAllGroups } from '../../store/produtos';
 
 const GruposNavegacao = ({ alternateTab }) => {
   const grupos = useSelector(onlyAllGroups);
-  const [active, setActive] = React.useState(grupos[0].id);
+  const firstGroup = grupos[0];
+  const [active, setActive] = React.useState(firstGroup.id);
 
-  function haldeClick(event) {
-    setActive(event.target.id);
-    alternateTab(event.target.id);
+  function handleClick(event) {
+    const idGroup = event.target.id;
+    setActive(idGroup);
+    alternateTab(idGroup);
   }
 
   return (
@@ -21,7 +23,7 @@ const GruposNavegacao = ({ alternateTab }) => {
           className={`${styles.buttonDayPasseio} ${
             active === grupo.id ? styles.colorGrupo : ''
           }`}
-          onClick={haldeClick}
+          onClick={handleClick}
         >
           {grupo.nome}
         </button>
