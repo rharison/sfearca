@@ -11,6 +11,7 @@ import { itensForGroups } from './store/produtos';
 import Card from './Components/Cards/Card';
 import CarrinhoFull from './Components/Carrinho/CarrinhoFull';
 import { toggleExpanded } from './store/carrinho';
+import FloatButton from './Components/FloatButton';
 
 function App() {
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
@@ -38,13 +39,6 @@ function App() {
     };
   }, []);
 
-  function handleClickFloatButton() {
-    window.scroll({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
   function handleScroll() {
     setPositionScroll(window.scrollY);
   }
@@ -71,24 +65,7 @@ function App() {
             <Card key={item.iditens} item={item} />
           ))}
         </div>
-        {positionScroll >= 420 && (
-          <button className="floatButton" onClick={handleClickFloatButton}>
-            <svg
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line x1="12" y1="19" x2="12" y2="5"></line>
-              <polyline points="5 12 12 5 19 12"></polyline>
-            </svg>
-          </button>
-        )}
+        {positionScroll >= 420 && <FloatButton />}
       </div>
     );
   else return null;
