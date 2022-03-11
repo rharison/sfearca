@@ -24,7 +24,7 @@ const Card = ({ item }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listItens]);
 
-  function updateListItem(operation) {
+  function handleClickAddOrSub(operation) {
     const objPayload = {
       [item.iditens]: {
         nome: item.nome,
@@ -33,46 +33,35 @@ const Card = ({ item }) => {
       },
     };
 
-    switch (operation) {
-      case 'comprar':
+    const updateItem = {
+      comprar: () => {
+        dispatch(incrementar(valorVendaItem));
         objPayload[item.iditens].quantidade = 1;
-        break;
-      case 'add':
+        dispatch(updateItenslist(objPayload));
+      },
+      add: () => {
+        dispatch(incrementar(valorVendaItem));
         objPayload[item.iditens].quantidade = itemListRedux.quantidade;
         objPayload[item.iditens].quantidade++;
-        break;
-      case 'sub':
+        dispatch(updateItenslist(objPayload));
+      },
+      sub: () => {
+        dispatch(decrementar(valorVendaItem));
         objPayload[item.iditens].quantidade = itemListRedux.quantidade;
         if (objPayload[item.iditens].quantidade === 1) {
           dispatch(deleteItemList(item.iditens));
-          return;
         } else {
           objPayload[item.iditens].quantidade--;
+          dispatch(updateItenslist(objPayload));
         }
-        break;
-      default:
+      },
+      default: () => {
         return null;
-    }
-
-    dispatch(updateItenslist(objPayload));
-  }
-  function handleClickAddOrSub(operation) {
-    switch (operation) {
-      case 'comprar':
-        dispatch(incrementar(valorVendaItem));
-        updateListItem(operation);
-        break;
-      case 'add':
-        dispatch(incrementar(valorVendaItem));
-        updateListItem(operation);
-        break;
-      case 'sub':
-        dispatch(decrementar(valorVendaItem));
-        updateListItem(operation);
-        break;
-      default:
-        return null;
-    }
+      },
+    };
+    return updateItem[operation]
+      ? updateItem[operation]()
+      : updateItem['default']();
   }
 
   const addVirgula = (valor) => {

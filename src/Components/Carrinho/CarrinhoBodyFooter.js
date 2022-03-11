@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './CarrinhoBodyFooter.module.css';
+import { useSelector } from 'react-redux';
 
 const CarrinhoBodyFooter = () => {
+  const listItens = useSelector((state) => state.carrinho.listItens);
   const [currentWidthWindowClient, setCurrentWidthWindowClient] =
     React.useState(window.innerWidth);
 
@@ -41,7 +43,15 @@ const CarrinhoBodyFooter = () => {
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
       </button>
-      <button name="finalizarVenda" className={styles.buttonCarrinhoFooter}>
+      <button
+        name="finalizarVenda"
+        className={styles.buttonCarrinhoFooter}
+        style={
+          Object.values(listItens).length
+            ? { backgroundColor: '#83ba31' }
+            : { backgroundColor: '#c4cdd4' }
+        }
+      >
         <span>Finalizar Compra</span>
         <svg
           stroke="currentColor"
