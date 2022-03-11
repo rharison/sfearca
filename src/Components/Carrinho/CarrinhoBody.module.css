@@ -310,13 +310,13 @@
 }
 
 .diaSelecionadoText {
-  padding: 10px;
-  border-radius: 5px;
+  padding: 4px 13px;
+  border-radius: 6px;
   background-color: #f1ffeb;
-  color: #5a6c7c;
+  color: rgb(45, 157, 1);
   display: flex;
   align-self: center;
   justify-content: center;
   font-size: 0.87em;
-  margin-left: 4px;
+  margin-left: 0px 5px;
 }

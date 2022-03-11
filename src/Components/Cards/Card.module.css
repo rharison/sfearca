@@ -152,6 +152,7 @@
   color: #01549d;
   transition: 2s;
   font-size: 1.07rem;
+  cursor: pointer;
 }
 
 .paiButtonCardCompra {
@@ -170,6 +171,7 @@
   width: 100%;
   border: #01549d 1px solid;
   background-color: white;
+  user-select: none;
 }
 
 .paiButtonCardCompra button {
@@ -192,4 +194,5 @@
   width: 100%;
   height: 40px;
   color: #01549d;
+  cursor: pointer;
 }

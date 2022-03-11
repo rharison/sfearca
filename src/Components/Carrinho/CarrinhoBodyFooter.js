@@ -45,11 +45,10 @@ const CarrinhoBodyFooter = () => {
       </button>
       <button
         name="finalizarVenda"
-        className={styles.buttonCarrinhoFooter}
-        style={
-          Object.values(listItens).length
-            ? { backgroundColor: '#83ba31' }
-            : { backgroundColor: '#c4cdd4' }
+        className={
+          !Object.values(listItens).length
+            ? styles.buttonCarrinhoFooter
+            : `${styles.buttonCarrinhoFooter} ${styles.buttonCarrinhoFooterAtivado}`
         }
       >
         <span>Finalizar Compra</span>

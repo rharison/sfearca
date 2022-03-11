@@ -16,12 +16,12 @@ import FloatButton from './Components/FloatButton';
 function App() {
   const isExpanded = useSelector((state) => state.carrinho.isExpanded);
   const { loading, error, data } = useSelector((state) => state.produtos);
-  const dispatch = useDispatch();
   const allItens = useSelector(onlyAllItens);
   const ItensforGroups = useSelector(itensForGroups);
   const grupos = useSelector(onlyAllGroups);
   const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
   const [positionScroll, setPositionScroll] = React.useState(0);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const { dateNow } = DateNow();
@@ -56,7 +56,7 @@ function App() {
           className="full"
           onClick={() => dispatch(toggleExpanded())}
           style={{ pointerEvents: !isExpanded ? 'none' : 'initial' }}
-        ></div>
+        />
         <CarrinhoFull isShow={positionScroll >= 420} />
         <CarrinhoBody allItens={allItens} />
         <GruposNavegacao alternateTab={alternateTab} />

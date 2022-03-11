@@ -104,10 +104,6 @@ div {
   overflow: hidden;
 }
 
-button:hover {
-  cursor: pointer;
-}
-
 .button-nav {
   display: flex;
   justify-content: space-around;

@@ -43,7 +43,16 @@
   border: 0px;
   height: 50%;
   border-radius: 6px;
-  cursor: auto !important;
+  cursor: auto;
+}
+
+.buttonCarrinhoFooterAtivado {
+  background-color: #83ba31;
+  cursor: pointer;
+}
+
+.buttonCarrinhoFooterAtivado:hover {
+  opacity: 0.7;
 }
 
 .buttonCarrinhoFooterLeft {
