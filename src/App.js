@@ -22,6 +22,8 @@ function App() {
   const [idGroupSelecionado, setidGroupSelecionado] = React.useState('');
   const [positionScroll, setPositionScroll] = React.useState(0);
 
+  this.test = 0;
+
   React.useEffect(() => {
     const { dateNow } = DateNow();
     dispatch(fetchProdutos(dateNow));
@@ -68,7 +70,7 @@ function App() {
         <GruposNavegacao alternateTab={alternateTab} />
         <div className="cards">
           {ItensforGroups[idGroupSelecionado]?.map((item) => (
-            <Card key={item.iditens} item={item} allItens={allItens} />
+            <Card key={item.iditens} item={item} />
           ))}
         </div>
         {positionScroll >= 420 && (

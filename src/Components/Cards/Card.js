@@ -62,14 +62,25 @@ const Card = ({ item }) => {
         },
       };
       dispatch(updateItenslist(objPayload));
-    } else {
+      return;
+    }
+    console.log('bilu');
+    if (haveEspecificItemInReduxList(item.iditens)) {
       dispatch(deleteItemList(item.iditens));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtdeItem]);
 
+  React.useEffect(() => {
+    const itemListRedux = haveEspecificItemInReduxList(item.iditens);
+    if (haveItemInReduxListItens && itemListRedux) {
+      setQtdeItem(itemListRedux.quantidade);
+      return;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listItens]);
+
   function haveEspecificItemInReduxList(idItem) {
-    if (!listItens[`${idItem}`]) return false;
     return listItens[`${idItem}`];
   }
 
@@ -223,7 +234,6 @@ const Card = ({ item }) => {
             >
               -
             </button>
-            {}
             <span className={styles.spanText}>{qtdeItem}</span>
             <button
               value={item.iditens}

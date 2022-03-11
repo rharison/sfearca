@@ -18,14 +18,16 @@ const ItemList = ({ item }) => {
           .split(/\s/)[1];
   };
 
-  function handleClickIconDeleteITen() {
+  function handleClickIconDeleteIten() {
     dispatch(deleteItemList(item[0]));
+
     dispatch(
       decrementar({
         quantidade: item[1].quantidade,
         valorTotal: item[1].quantidade * item[1].valorUnitario,
       }),
     );
+
     const moreItemInList = Object.values(listItens).length === 1;
     if (!moreItemInList) dispatch(toggleExpanded());
   }
@@ -49,7 +51,7 @@ const ItemList = ({ item }) => {
             height="1em"
             width="1em"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={handleClickIconDeleteITen}
+            onClick={handleClickIconDeleteIten}
           >
             <polyline
               className={styles.itemSvg}
