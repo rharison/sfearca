@@ -34,7 +34,11 @@ export const fetchProdutos = (dateNow) => async (dispatch) => {
     );
     if (response.status === 200) {
       const data = await response.json();
-      dispatch(fetchSuccess(data));
+      if (data.grupos.length) {
+        dispatch(fetchSuccess(data));
+      } else {
+        dispatch(fetchError('Não existem produtos para a data informada'));
+      }
     } else {
       const data = await response.json();
       dispatch(fetchError(data.message));
