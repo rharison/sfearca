@@ -1,5 +1,5 @@
 function DateNow() {
-  let date = new Date();
+  let date = new Date('2022/03/19');
   let dia = date.getDate();
   let monthNumber = date.getMonth() + 1;
   let ano = date.getFullYear();

@@ -157,16 +157,28 @@ const CarrinhoBody = ({ allItens }) => {
           className={`${styles.divCarrinhoDentro} ${styles.closeHideCarrinho} ${styles.carrinhoElement}`}
           style={isExpanded ? { display: 'flex' } : { display: 'none' }}
         >
-          {Object.values(listItens).length > 0 && (
-            <div className={styles.diaSelecionado}>
-              <span className={styles.diaSelecionadoDia}>
-                {dia} de {monthString} de {ano}
-              </span>
-              <span className={styles.diaSelecionadoText}>Dia selecionado</span>
+          {Object.values(listItens).length > 0 ? (
+            <>
+              <div className={styles.diaSelecionado}>
+                <span className={styles.diaSelecionadoDia}>
+                  {dia} de {monthString} de {ano}
+                </span>
+                <span className={styles.diaSelecionadoText}>
+                  Dia selecionado
+                </span>
+              </div>
+              {Object.entries(listItens).map((item) => (
+                <ItemList key={item[1]?.nome} item={item} />
+              ))}
+              ,
+            </>
+          ) : (
+            <div className={styles.nenhumItemSelecionado}>
+              Nenhum produto adiconado ao carrinho
             </div>
           )}
 
-          {Object.values(listItens).length > 0 ? (
+          {/* {Object.values(listItens).length > 0 ? (
             Object.entries(listItens).map((item) => (
               <ItemList key={item[1]?.nome} item={item} />
             ))
@@ -174,7 +186,7 @@ const CarrinhoBody = ({ allItens }) => {
             <div className={styles.nenhumItemSelecionado}>
               Nenhum produto adiconado ao carrinho
             </div>
-          )}
+          )} */}
 
           {Object.values(listItens).length > 0 && (
             <div className={styles.bottomCarrinhoHideFinalizarCompra}>
