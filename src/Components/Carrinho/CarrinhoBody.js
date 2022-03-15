@@ -170,7 +170,6 @@ const CarrinhoBody = ({ allItens }) => {
               {Object.entries(listItens).map((item) => (
                 <ItemList key={item[1]?.nome} item={item} />
               ))}
-              ,
             </>
           ) : (
             <div className={styles.nenhumItemSelecionado}>
